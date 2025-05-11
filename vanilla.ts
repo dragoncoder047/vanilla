@@ -52,7 +52,7 @@ export function html(string: string): HTMLSpanElement {
  * An alias for `document.querySelector()`. The name was too long for my liking.
  */
 export function get(id: string): HTMLElement | null {
-    return document.getElementById(id);
+    return document.querySelector(id);
 }
 
 /**
