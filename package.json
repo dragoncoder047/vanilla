@@ -1,0 +1,9 @@
+{
+    "name": "vanilla",
+    "version": "1.0.0",
+    "description": "html utilities",
+    "main": "vanilla.ts",
+    "keywords": [],
+    "author": "",
+    "type": "module"
+}
