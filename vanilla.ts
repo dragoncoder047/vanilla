@@ -18,8 +18,8 @@
  * // => <span class="foo" id="bar">click <a href="http://google.com", target="_blank">here</a>to go to google</span>
  * ```
  */
-export function make(nameAndClasses: string, properties?: Record<string, string>, ...children: (Node | string)[]): HTMLElement {
-    const [name, ...classes] = nameAndClasses.split(".");
+export function make<T extends keyof HTMLElementTagNameMap>(nameAndClasses: T | `${T}.${string}`, properties?: Record<string, string>, ...children: (Node | string)[]): HTMLElementTagNameMap[T] {
+    const [name, ...classes] = nameAndClasses.split(".") as [T, ...string[]];
     const el = document.createElement(name!);
     if (classes.length > 0)
         el.classList.add(...classes);
