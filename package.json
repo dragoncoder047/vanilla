@@ -1,9 +1,10 @@
 {
     "name": "vanilla",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "html utilities",
-    "main": "vanilla.ts",
+    "main": "vanilla.js",
+    "types": "vanilla.d.ts",
     "keywords": [],
-    "author": "",
+    "author": "dragoncoder047",
     "type": "module"
 }

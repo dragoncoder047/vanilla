@@ -18,17 +18,7 @@
  * // => <span class="foo" id="bar">click <a href="http://google.com", target="_blank">here</a>to go to google</span>
  * ```
  */
-export function make<T extends keyof HTMLElementTagNameMap>(nameAndClasses: T | `${T}.${string}`, properties?: Record<string, string>, ...children: (Node | string)[]): HTMLElementTagNameMap[T] {
-    const [name, ...classes] = nameAndClasses.split(".") as [T, ...string[]];
-    const el = document.createElement(name!);
-    if (classes.length > 0)
-        el.classList.add(...classes);
-    for (var [k, v] of Object.entries(properties ?? {})) {
-        el.setAttribute(k, v);
-    }
-    el.append(...children);
-    return el;
-}
+export function make<T extends keyof HTMLElementTagNameMap>(nameAndClasses: T | `${T}.${string}`, properties?: Record<string, string>, ...children: (Node | string)[]): HTMLElementTagNameMap[T];
 
 /**
  * Creates a `<span>` element using `make()` and then stuffs the `htmlString`
@@ -42,40 +32,28 @@ export function make<T extends keyof HTMLElementTagNameMap>(nameAndClasses: T | 
  * // => <span>click <a href="http://google.com", target="_blank">here</a> to go to google</span>
  * ```
  */
-export function html(string: string): HTMLSpanElement {
-    const el = make("span");
-    el.innerHTML = string;
-    return el;
-}
+export function html(string: string): HTMLSpanElement;
 
 /**
  * An alias for `document.querySelector()`. The name was too long for my liking.
  */
-export function get(id: string): HTMLElement | null {
-    return document.querySelector(id);
-}
+export function get(id: string): HTMLElement | null;
 
 /**
  * Equivalent to `get(selector).addEventListener(event, callback)`... again
  * because `.addEventListener()` is too long to type.
  */
-export function bind<E extends keyof HTMLElementEventMap>(selector: string, event: E, handler: (e: HTMLElementEventMap[E]) => void, capture: boolean = false) {
-    get(selector)?.addEventListener(event, handler, { capture });
-}
+export function bind<E extends keyof HTMLElementEventMap>(selector: string, event: E, handler: (e: HTMLElementEventMap[E]) => void, capture?: boolean);
 
 /**
  * Returns a promise that resolves with the next event detail for the event
  * on the element. If the element does not exist or the event never fires,
  * the promise will never resolve.
  */
-export function watFor<E extends keyof HTMLElementEventMap>(selector: string, event: E): Promise<HTMLElementEventMap[E]> {
-    return new Promise(resolve => get(selector)?.addEventListener(event, e => resolve(e), { once: true }));
-}
+export function waitFor<E extends keyof HTMLElementEventMap>(selector: string, event: E): Promise<HTMLElementEventMap[E]>;
 
 /**
  * Replaces the node with the newNode. Again because the "raw" DOM API is too
  * long to type. It returns the old element like the DOM API does.
  */
-export function replace<T extends HTMLElement>(node: T, newNode: HTMLElement): T {
-    return node.parentNode!.replaceChild(newNode, node) as T;
-}
+export function replace<T extends HTMLElement>(node: T, newNode: HTMLElement): T;
