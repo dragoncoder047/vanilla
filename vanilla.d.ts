@@ -3,11 +3,29 @@
  * yet attached to the DOM. The first argument is the tag name and
  * classes separated by dots. The second argument is an object with
  * attributes and the rest of the arguments are the children. Strings
- * are added as text nodes (the browser will escape them).
+ * are added as text nodes (the browser will escape them). If the tag name
+ * is null a `DocumentFragment` is returned instead with the children added
+ * to it.
  *
  * This function has the same signature as React.createElement(), so it can be
- * used as a drop-in replacement if you configure your build tool correctly. For
- * esbuild, see https://esbuild.github.io/content-types/#using-jsx-without-react.
+ * used as a mostly drop-in replacement if you configure your build tool correctly.
+ * For esbuild, it respects your tsconfig.json, just add these to it:
+ *
+ * ```json
+ * {
+ *   "compilerOptions": {
+ *     "jsxFactory": "make",
+ *     "jsxFragmentFactory": "null",
+ *     "jsxImportSource": "vanilla",
+ *     "types": ["vanilla"]
+ *   }
+ * }
+ * ```
+ *
+ * Caveats in JSX mode: only "lowercase" tag names are supported (not components,
+ * make() doesn't know what to do with a function and will crash), and the dotted
+ * class form does not work (since the dot makes it be interpreted as a object
+ * reference and be interpreted in the same way as an uppercase name).
  * 
  * @example
  * ```js
@@ -21,8 +39,16 @@
  *      " to go to google")
  * // => <span class="foo" id="bar">click <a href="http://google.com", target="_blank">here</a>to go to google</span>
  * ```
+ * 
+ * @example
+ * ```jsx
+ * // The above could also be written as:
+ * var link = "http://google.com";
+ * <span class="foo" id="bar">click <a href={link} target="_blank">here</a> to go to google</span>
+ * // provided that the build tool is configured correctly to use vanilla!
+ * ```
  */
-export function make<T extends keyof HTMLElementTagNameMap>(nameAndClasses: T | `${T}.${string}`, properties?: Record<string, string>, ...children: (Node | string)[]): HTMLElementTagNameMap[T];
+export function make<T extends (keyof HTMLElementTagNameMap) | null>(nameAndClasses: T | `${T}.${string}`, properties?: T extends null ? null : Record<string, string> | null, ...children: (Node | string)[]): T extends null ? DocumentFragment : HTMLElementTagNameMap[NonNullable<T>];
 
 /**
  * Creates a `<span>` element using `make()` and then stuffs the `htmlString`
