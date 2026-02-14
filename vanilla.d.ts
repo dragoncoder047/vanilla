@@ -25,7 +25,7 @@
  * Caveats in JSX mode: only "lowercase" tag names are supported (not components,
  * make() doesn't know what to do with a function and will crash), and the dotted
  * class form does not work (since the dot makes it be interpreted as a object
- * reference and be interpreted in the same way as an uppercase name).
+ * reference in the same way as an uppercase name).
  * 
  * @example
  * ```js
