@@ -4,6 +4,10 @@
  * classes separated by dots. The second argument is an object with
  * attributes and the rest of the arguments are the children. Strings
  * are added as text nodes (the browser will escape them).
+ *
+ * This function has the same signature as React.createElement(), so it can be
+ * used as a drop-in replacement if you configure your build tool correctly. For
+ * esbuild, see https://esbuild.github.io/content-types/#using-jsx-without-react.
  * 
  * @example
  * ```js
