@@ -1,10 +1,15 @@
 export function make(nameAndClasses, properties, ...children) {
-    const [name, ...classes] = nameAndClasses.split(".");
-    const el = document.createElement(name);
-    if (classes.length > 0)
-        el.classList.add(...classes);
-    for (var [k, v] of Object.entries(properties ?? {})) {
-        el.setAttribute(k, v);
+    var el;
+    if (nameAndClasses !== null) {
+        const [name, ...classes] = nameAndClasses.split(".");
+        el = document.createElement(name);
+        if (classes.length > 0)
+            el.classList.add(...classes);
+        for (var [k, v] of Object.entries(properties ?? {})) {
+            el.setAttribute(k, v);
+        }
+    } else {
+        el = document.createDocumentFragment();
     }
     el.append(...children);
     return el;
