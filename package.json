@@ -3,6 +3,10 @@
     "version": "1.0.2",
     "description": "html utilities",
     "main": "vanilla.js",
+    "exports": {
+        ".": "./vanilla.js",
+        "./jsx-runtime": "./vanilla.js"
+    },
     "types": "vanilla.d.ts",
     "keywords": [],
     "author": "dragoncoder047",
