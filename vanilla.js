@@ -37,4 +37,18 @@ export function replace(node, newNode) {
     return node.parentNode.replaceChild(newNode, node);
 }
 
-export { make as jsx, make as jsxs, make as jsxDEV, make as jsxsDEV }
+export const Fragment = null;
+
+export function jsx(node, props) {
+    var children = props.children ?? [], el;
+    delete props.children;
+    if (typeof node === "function") {
+        el = node(props);
+        el.append(children);
+    } else {
+        el = make(node, props, ...children);
+    }
+    return el;
+}
+
+export { jsx as jsxDEV, jsx as jsxs, jsx as jsxsDEV };

@@ -3,29 +3,7 @@
  * yet attached to the DOM. The first argument is the tag name and
  * classes separated by dots. The second argument is an object with
  * attributes and the rest of the arguments are the children. Strings
- * are added as text nodes (the browser will escape them). If the tag name
- * is null a `DocumentFragment` is returned instead with the children added
- * to it.
- *
- * This function has the same signature as React.createElement(), so it can be
- * used as a mostly drop-in replacement if you configure your build tool correctly.
- * For esbuild, it respects your tsconfig.json, just add these to it:
- *
- * ```json
- * {
- *   "compilerOptions": {
- *     "jsxFactory": "make",
- *     "jsxFragmentFactory": "null",
- *     "jsxImportSource": "vanilla",
- *     "types": ["vanilla"]
- *   }
- * }
- * ```
- *
- * Caveats in JSX mode: only "lowercase" tag names are supported (not components,
- * make() doesn't know what to do with a function and will crash), and the dotted
- * class form does not work (since the dot makes it be interpreted as a object
- * reference in the same way as an uppercase name).
+ * are added as text nodes (the browser will escape them).
  * 
  * @example
  * ```js
@@ -38,14 +16,6 @@
  *                    "here"),
  *      " to go to google")
  * // => <span class="foo" id="bar">click <a href="http://google.com", target="_blank">here</a>to go to google</span>
- * ```
- * 
- * @example
- * ```jsx
- * // The above could also be written as:
- * var link = "http://google.com";
- * <span class="foo" id="bar">click <a href={link} target="_blank">here</a> to go to google</span>
- * // provided that the build tool is configured correctly to use vanilla!
  * ```
  */
 export function make<T extends (keyof HTMLElementTagNameMap) | null>(nameAndClasses: T | `${T}.${string}`, properties?: T extends null ? null : Record<string, string> | null, ...children: (Node | string)[]): T extends null ? DocumentFragment : HTMLElementTagNameMap[NonNullable<T>];
@@ -73,7 +43,7 @@ export function get(id: string): HTMLElement | null;
  * Equivalent to `get(selector).addEventListener(event, callback)`... again
  * because `.addEventListener()` is too long to type.
  */
-export function bind<E extends keyof HTMLElementEventMap>(selector: string, event: E, handler: (e: HTMLElementEventMap[E]) => void, capture?: boolean);
+export function bind<E extends keyof HTMLElementEventMap>(selector: string, event: E, handler: (e: HTMLElementEventMap[E]) => void, capture?: boolean): void;
 
 /**
  * Returns a promise that resolves with the next event detail for the event
@@ -88,4 +58,17 @@ export function waitFor<E extends keyof HTMLElementEventMap>(selector: string, e
  */
 export function replace<T extends HTMLElement>(node: T, newNode: HTMLElement): T;
 
-export { make as jsx, make as jsxs, make as jsxDEV, make as jsxsDEV }
+export const Fragment: null;
+
+/**
+ * Shim for modern React style JSX-transform.
+ * @param node - The node, either a string name (for {@link make}) or the "component" function. It is called once and never again.
+ * @param props - The properties, along with `children`
+ * @param key - unused
+ * @param isStaticChildren - unused
+ * @param sourceInfo - unused
+ * @param self - unused
+ */
+export function jsx(node: keyof HTMLElementTagNameMap | Function | typeof Fragment, props: Record<string, any> & { children?: Node[] }, key: unknown, isStaticChildren: unknown, sourceInfo: unknown, self: unknown): HTMLElement;
+
+export { jsx as jsxDEV, jsx as jsxs, jsx as jsxsDEV };
