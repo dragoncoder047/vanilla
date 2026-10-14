@@ -36,3 +36,5 @@ export function waitFor(selector, event) {
 export function replace(node, newNode) {
     return node.parentNode.replaceChild(newNode, node);
 }
+
+export { make as jsx, make as jsxs }

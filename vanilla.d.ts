@@ -87,3 +87,5 @@ export function waitFor<E extends keyof HTMLElementEventMap>(selector: string, e
  * long to type. It returns the old element like the DOM API does.
  */
 export function replace<T extends HTMLElement>(node: T, newNode: HTMLElement): T;
+
+export { make as jsx, make as jsxs }
