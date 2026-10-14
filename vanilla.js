@@ -39,8 +39,12 @@ export function replace(node, newNode) {
 
 export const Fragment = null;
 
+function children2(elements) {
+    return Array.isArray(elements) ? elements.flatMap(children2) : [elements];
+}
+
 export function jsx(node, props) {
-    var children = props.children ?? [], el;
+    var children = children2(props.children ?? []), el;
     delete props.children;
     if (typeof node === "function") {
         el = node(props);

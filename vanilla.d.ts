@@ -69,6 +69,6 @@ export const Fragment: null;
  * @param sourceInfo - unused
  * @param self - unused
  */
-export function jsx(node: keyof HTMLElementTagNameMap | Function | typeof Fragment, props: Record<string, any> & { children?: Node[] }, key: unknown, isStaticChildren: unknown, sourceInfo: unknown, self: unknown): HTMLElement;
+export function jsx(node: keyof HTMLElementTagNameMap | Function | typeof Fragment, props: Record<string, any> & { children?: any | any[] }, key: unknown, isStaticChildren: unknown, sourceInfo: unknown, self: unknown): HTMLElement;
 
 export { jsx as jsxDEV, jsx as jsxs, jsx as jsxsDEV };
