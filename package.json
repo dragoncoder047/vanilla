@@ -1,11 +1,12 @@
 {
     "name": "vanilla",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "html utilities",
     "main": "vanilla.js",
     "exports": {
         ".": "./vanilla.js",
-        "./jsx-runtime": "./vanilla.js"
+        "./jsx-runtime": "./vanilla.js",
+        "./jsx-dev-runtime": "./vanilla.js"
     },
     "types": "vanilla.d.ts",
     "keywords": [],
