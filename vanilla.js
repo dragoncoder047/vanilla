@@ -37,4 +37,4 @@ export function replace(node, newNode) {
     return node.parentNode.replaceChild(newNode, node);
 }
 
-export { make as jsx, make as jsxs }
+export { make as jsx, make as jsxs, make as jsxDEV, make as jsxsDEV }

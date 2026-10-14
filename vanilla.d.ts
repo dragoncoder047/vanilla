@@ -88,4 +88,4 @@ export function waitFor<E extends keyof HTMLElementEventMap>(selector: string, e
  */
 export function replace<T extends HTMLElement>(node: T, newNode: HTMLElement): T;
 
-export { make as jsx, make as jsxs }
+export { make as jsx, make as jsxs, make as jsxDEV, make as jsxsDEV }
